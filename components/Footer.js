@@ -1,8 +1,9 @@
-import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <footer className='mt-10 bg-transparent text-center p-8'>
+        <p className='font-medium text-black capitalize'>&copy; <span className='uppercase font-black'>mobShop</span> all rights reserved</p>
+    </footer>
   )
 }
 

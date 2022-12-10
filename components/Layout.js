@@ -11,7 +11,7 @@ export const Layout = ({children}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className='min-h-[88vh]'>
+      <main className='min-h-[88vh] overflow-hidden'>
         {children}
       </main>
       <Footer />
