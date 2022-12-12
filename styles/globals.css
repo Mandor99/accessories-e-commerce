@@ -9,8 +9,21 @@
     }
 }
 
+@layer components {
+    .btn {
+        @apply capitalize rounded-lg px-2 py-2 self-start text-center font-bold
+     }
+     .btn-light {
+        @apply btn bg-my-light-400 text-my-red-100
+     }
+     .btn-red {
+        @apply btn bg-my-red-100 text-white
+     }
+}
+
 @layer utilities {
     .pause {
         animation-play-state: paused;
     }
+    
 }
