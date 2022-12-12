@@ -45,15 +45,28 @@ module.exports = {
           padding: '2rem'
         },
         animation: {
-          'marquee': 'marquee 15s linear infinite'
+          'marquee': 'marquee 15s linear infinite',
+          'show': 'show .2s ease-in-out .5s',
+          'hide': 'hide .3s ease-in-out',
         },
         keyframes: {
           'marquee': {
             '0%': {transform: 'translateX(0)'},
             '100%': {transform: 'translateX(-50%)'}
+          },
+          'show': {
+            '0%': {transform: 'translateX(100%)'},
+            '100%': {transform: 'translateX(0)'},
+          },
+          'hide': {
+            '0%': {transform: 'translateX(0)'},
+            '100%': {transform: 'translateX(100%)'},
           }
         }
       },
+      plugins: [
+        require('tailwind-scrollbar-hide')
+      ],
     },
     autoprefixer: {},
   },
