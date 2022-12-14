@@ -7,7 +7,7 @@ import { useCart } from '../context/cartContext'
 function Cart() {
 
     const pros = ['watch_3', 'headphones_b_1', 'watch_3', 'headphones_b_1', 'watch_3', 'headphones_b_1']
-    const { toggleCart, setToggleCart } = useCart()
+    const { setToggleCart } = useCart()
 
 
     return (

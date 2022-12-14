@@ -25,5 +25,8 @@
     .pause {
         animation-play-state: paused;
     }
+    .running {
+        animation-play-state: running;
+    }
     
 }
