@@ -5,7 +5,6 @@ import {useCart} from '../context/cartContext'
 
 const Navbar = () => {
   const {toggleCart, setToggleCart} = useCart()
-  console.log(toggleCart)
 
   return (
     <nav className='flex py-4 px-8 justify-between sticky top-0 shadow-sm text-my-gray z-50 bg-white'>
