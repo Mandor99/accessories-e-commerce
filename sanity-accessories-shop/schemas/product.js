@@ -35,10 +35,25 @@ const product =  defineType({
             type: 'string'
         },
         {
+            name: 'smallDetails',
+            title: 'smallDetails',
+            type: 'string'
+        },
+        {
             name: 'price',
             title: 'Price',
             type: 'number'
-        }
+        },
+        {
+            name: 'rate',
+            title: 'Rate',
+            type: 'number'
+        },
+        {
+            name: 'numRates',
+            title: 'NumRates',
+            type: 'number'
+        },
     ]
 })
 
