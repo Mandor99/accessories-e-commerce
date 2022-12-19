@@ -15,9 +15,9 @@ function BestSeller({products}) {
                 {
                     products.map(({_id, image, smallDetails, price, slug}, i) => (
                        <Link href={`/product/${slug.current}`} key={_id}>
-                         <div className='relative rounded-md bg-my-light-200 flex items-center justify-center cursor-pointer'>
+                         <div className='relative rounded-md bg-my-light-200 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform'>
                             <figure className="relative w-[55vw] shadow-md md:w-[29vw] md:max-w-[35vw] lg:w-[15vw] lg:max-w-[15vw] h-[200px]">
-                                <Image src={urlFor(image[0]).url()} className="top-0 left-0 absolute object-contain" alt='product image' layout='fill'/>
+                                <Image src={urlFor(image[0]).url()} className="top-0 left-0 absolute object-contain scale-110" alt='product image' layout='fill'/>
                             </figure>
                         </div>
                         <div className='mt-2 text-center md:text-start'>
