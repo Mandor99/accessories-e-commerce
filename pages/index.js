@@ -4,7 +4,7 @@ import SaleBanner from '../components/SaleBanner'
 import { client } from '../lib/client'
 
 export default function Home({products, bannerData}) {
-
+  // console.log(products)
   return (
     <>
       <Banner bannerData={bannerData[1]} />
