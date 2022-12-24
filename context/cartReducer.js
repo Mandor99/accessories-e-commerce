@@ -2,6 +2,7 @@ export const addToCartAction = 'ADD_TO_CART'
 export const removeFromCartAction = 'REMOVE_FROM_CART'
 export const incQtyInCart = 'INC_CART_PRODUCT'
 export const decQtyInCart = 'DEC_CART_PRODUCT'
+export const clearCart = 'CLEAR_CART'
 
 export const getTotalPrice = (cart) => cart.reduce((sum, product) => sum + Number(product.price*product.quantity), 0)
 export const getTotalQuantities = (cart) => cart.reduce((sum, product) => sum + Number(product.quantity), 0)
@@ -33,6 +34,9 @@ export const cartReducer = (state=initialState, {type, payload: {product, qty, i
         case decQtyInCart:
             const updatedCartWithDec = state.cart.map(prod => prod._id === id ? {...prod, quantity: prod.quantity-1 < 1 ? 1 : prod.quantity-1} : prod)
             return {...state, cart: updatedCartWithDec}
+
+        case clearCart:
+            return {...state, cart: []}
 
         default:
             break;

@@ -16,7 +16,7 @@ function Product({product, products}) {
     const [src, setSrc] = useState(0)
     const [animate, setAnimate] = useState(true)
     const [qty, setQty] = useState(1)
-    const {dispatch} = useCart()
+    const {dispatch, setToggleCart} = useCart()
 
     useEffect(() => {
       setSrc(0)
@@ -29,6 +29,11 @@ function Product({product, products}) {
         dispatch({type: addToCartAction, payload: {product, qty}})
         setQty(1)
         toast.success(`${qty} ${product.smallDetails} added to the cart.`);
+    }
+    const handleBuyNow = () => {
+        dispatch({type: addToCartAction, payload: {product, qty}})
+        setQty(1)
+        setToggleCart(true)
     }
 
     return (
@@ -79,7 +84,7 @@ function Product({product, products}) {
                             </div>
                             <div className='flex gap-4 md:gap-8 my-8 md:my-6 lg:my-8 flex-col md:flex-row'>
                                 <button onClick={addProductToCart} className='btn-flat-transparent w-full lg:w-1/4 md:w-1/2'>add to cart</button>
-                                <button className='btn-flat-red w-full lg:w-1/4 md:w-1/2'>buy now</button>
+                                <button onClick={handleBuyNow} className='btn-flat-red w-full lg:w-1/4 md:w-1/2'>buy now</button>
                             </div>
                         </article>
                     </div>

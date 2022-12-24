@@ -1,23 +1,48 @@
 import Image from 'next/legacy/image'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineCancel } from 'react-icons/md'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { useCart } from '../context/cartContext'
 import Link from 'next/link'
 import { urlFor } from '../lib/client'
 import { getTotalQuantities, getTotalPrice, removeFromCartAction, incQtyInCart, decQtyInCart } from '../context/cartReducer'
+import { toast } from 'react-hot-toast'
+import getStripe from '../lib/getStripe'
+
 
 
 function Cart() {
 
-    const pros = ['watch_3', 'headphones_b_1', 'watch_3', 'headphones_b_1', 'watch_3', 'headphones_b_1']
     const { setToggleCart, stateCart, dispatch } = useCart()
+    const handlePayment = async () => {
+        const promiseStripe = await getStripe()
+        const res = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(stateCart.cart)
+        })
+        if(res.statusCode === 500) return;
+        const data = await res.json()
+        toast.loading('Redirecting...');
+        promiseStripe.redirectToCheckout({ sessionId: data.id });
+    }
 
 
     return (
         <section className={`fixed top-0 right-0 min-h-[100vh] h-auto bg-my-light-black w-[100vw] backdrop-blur-sm`}>
             <div className={`fixed top-0 right-0 h-full w-[100vw] lg:w-[50vw] max-w-2xl bg-white pl-1 md:pl-8 p-8 overflow-auto scrollbar-hide`}>
-                <div className='h-full space-y-8'>
+                {
+                    stateCart.cart.length <= 0 ? (
+                        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center flex-col'>
+                            <HiOutlineShoppingBag className='text-[18rem]' />
+                            <p className='capitalize'>your shopping cart is empty!</p>
+                            <Link href={'/'} onClick={() => setToggleCart(false)} className='btn-red self-stretch mt-8 mx-4'>continue shopping</Link>
+                        </div>
+                    ) : (
+                        <div className='h-full space-y-8'>
                     <h4 className="capitalize text-black flex items-center gap-2 font-semibold">
                         <span className='cursor-pointer' onClick={() => setToggleCart(false)}>
                             <IoIosArrowBack className='text-xl' /></span> <span className='capitalize'> your cart</span> <span className='text-my-red-100'>{`(${getTotalQuantities(stateCart.cart)} ${getTotalQuantities(stateCart.cart) <= 1 ?'item': 'items'})`}</span>
@@ -53,12 +78,15 @@ function Cart() {
                             <h3>subtotal</h3>
                             <h3>{getTotalPrice(stateCart.cart)}$</h3>
                         </div>
-                        <Link href={'/'} className='btn bg-my-red-100 text-my-light-400 self-center w-full md:w-4/5 mb-8 uppercase transition-transform duration-300 hover:scale-110'>
+                        <button onClick={handlePayment} type='button' className='btn bg-my-red-100 text-my-light-400 self-center w-full md:w-4/5 mb-8 uppercase transition-transform duration-300 hover:scale-110'>
                             pay with stripe
-                        </Link>
+                        </button>
                     </div>
 
                 </div>
+                    )
+                }
+                
             </div>
         </section>
     )
